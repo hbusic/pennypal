@@ -13,7 +13,7 @@ module.exports = async function (context, req) {
     const db = client.db("pennypal");
     const collection = db.collection("transactions");
 
-    const results = await collection.find({}).limit(10).toArray();
+    const results = await collection.find({}).toArray();
 
     context.res = {
       status: 200,
