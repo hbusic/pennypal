@@ -28,12 +28,11 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: 'Resolve Project Dependencies Using Npm'
+      - name: 'Install Node Dependencies'
         shell: pwsh
         run: |
-          pushd '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+          cd '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
           npm install
-          popd
 
       - name: 'Run Azure Functions Action'
         uses: Azure/functions-action@v1
@@ -42,4 +41,3 @@ jobs:
           slot-name: 'Production'
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2696AAA0B19146CDBA60B91C60107BB9 }}
-
