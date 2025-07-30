@@ -5,7 +5,9 @@ module.exports = async function (context, req) {
     const uri = process.env["MONGO_URI"];
     context.log("Loaded URI:", uri);
 
-    const client = new MongoClient(uri, { serverApi: { version: "1" } });
+    const client = new MongoClient(uri, {
+      serverApi: { version: "1" }
+    });
 
     await client.connect();
     context.log("Connected to MongoDB");
@@ -13,6 +15,7 @@ module.exports = async function (context, req) {
     const db = client.db("pennypal");
     const collection = db.collection("transactions");
 
+    // No limit — returns all matching transactions
     const results = await collection.find({}).toArray();
 
     context.res = {
@@ -27,3 +30,4 @@ module.exports = async function (context, req) {
     };
   }
 };
+
